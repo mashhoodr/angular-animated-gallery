@@ -25,3 +25,11 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Accessing on ChromeOS Crostini Linux Container
+
+ctrl + alt + t (in chrome) to open the crosh shell
+> vmc start termina
+> lxc ls
+Use the ip address from eth0
+ip:8080 in the browser to access the Angular app
