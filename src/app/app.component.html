@@ -5,49 +5,6 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 </nav>
-
-<section class="gallery-block compact-gallery">
-  <div class="container">
-    <div class="heading">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" [(ngModel)]="query" placeholder="Mountains, Beaches, Forests...." aria-label="Recipient's username"
-          aria-describedby="button-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-        </div>
-      </div>
-    </div>
-    <div class="row no-gutters">
-      <div *ngIf="(images | search: 'heading':query).length === 0" style="text-align: center">
-        Woops didnt find anything for that!
-      </div>
-      <div class="col-md-6 col-lg-4 item zoom-on-hover" *ngFor="let image of images | search:'heading':query">
-        <a class="lightbox " href="# " (click)="open(content) ">
-          <img class="img-fluid image " src="assets/{{image.uri}} ">
-          <span class="description ">
-            <span class="description-heading ">{{image.heading}}</span>
-            <span class="description-body ">{{image.body}}</span>
-          </span>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<ng-template #content let-c="close " let-d="dismiss ">
-  <div class="modal-header ">
-    <h4 class="modal-title " id="modal-basic-title ">Lorem Ipsum</h4>
-    <button type="button " class="close " aria-label="Close " (click)="d( 'Cross click') ">
-      <span aria-hidden="true ">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body ">
-    <img class="img-fluid image " src="assets/1.jpg ">
-    <div style="padding-top: 20px;text-align: center; ">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing
-      elit.
-    </div>
-  </div>
-</ng-template>
-
-<router-outlet></router-outlet>
+<div class="routerContainer" [@slideInOut]="triggerAnimation(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
+</div>

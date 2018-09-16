@@ -1,0 +1,27 @@
+<section [@fade]="images.length" class="gallery-block compact-gallery">
+  <div class="container">
+    <div class="heading">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" [(ngModel)]="query" placeholder="Mountains, Beaches, Forests...." aria-label="Recipient's username"
+          aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+        </div>
+      </div>
+    </div>
+    <div class="row no-gutters">
+      <div *ngIf="(images | search: 'heading':query).length === 0" style="text-align: center">
+        Woops didnt find anything for that!
+      </div>
+      <div class="col-md-6 col-lg-4 item zoom-on-hover" *ngFor="let image of images | search:'heading':query">
+        <a class="lightbox " href="# " [routerLink]="['/item/', image.uri]">
+          <img class="img-fluid image " src="assets/{{image.uri}} ">
+          <span class="description ">
+            <span class="description-heading ">{{image.heading}}</span>
+            <span class="description-body ">{{image.body}}</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
