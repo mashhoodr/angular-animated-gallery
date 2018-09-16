@@ -1,0 +1,13 @@
+version: "2"
+
+services:
+
+  webapp:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./src:/app/src"
+      - "./e2e:/app/e2e"
+    environment:
+      - NODE_ENV=development
