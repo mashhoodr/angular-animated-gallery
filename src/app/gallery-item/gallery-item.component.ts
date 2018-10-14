@@ -11,7 +11,8 @@ export class GalleryItemComponent implements OnInit {
 
   image;
   constructor(private route: ActivatedRoute) {
-    this.image = this.route.snapshot.params.id;
+    this.image = this.route.snapshot.params.url;
+    console.log('loading', this.image);
   }
 
   ngOnInit() {

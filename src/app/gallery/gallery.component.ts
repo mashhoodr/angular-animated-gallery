@@ -7,7 +7,8 @@ import {
   animate,
   transition,
   stagger,
-  query
+  query,
+  animateChild
 } from '@angular/animations';
 
 
@@ -17,28 +18,48 @@ import {
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
   animations: [
-    trigger('fade', [
-      transition('* => *', [
+
+    trigger('list', [
+      transition(':enter', [
+        query('@fade', stagger(100, animateChild()))
+      ])
+    ]),
+
+    trigger('filterAnimation', [
+      transition(':enter, * => 0, * => -1', []),
+      transition(':increment', [
         query(':enter', [
-          style({
-            opacity: '0',
-            transform: 'translateY(-40px)'
-          }),
-          stagger(30, [
-            animate('300ms ease-in', style({ opacity: 1, transform: 'none' }))
-          ])
+          style({ opacity: 0, maxWidth: 0 }),
+          stagger(50, [
+            animate('300ms ease-out', style({ opacity: 1, maxWidth: '*' })),
+          ]),
+        ], { optional: true })
+      ]),
+      transition(':decrement', [
+        query(':leave', [
+          stagger(50, [
+            animate('300ms ease-out', style({ opacity: 0, maxWidth: '0px' })),
+          ]),
         ])
       ]),
-      transition('* => *', animate('300ms ease-out', style({
-        opacity: 0,
-        transform: 'translateY(40px)'
-      })))
+    ]),
+
+    trigger('fade', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms ease-out', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        style({ opacity: 1 }),
+        animate('300ms ease-out', style({ opacity: 0 }))
+      ])
     ])
   ]
 })
 export class GalleryComponent {
   @ViewChild('modal') modal: ElementRef;
   query = '';
+  imageResultCount = -1;
   images = [
     {
       uri: '1.jpg',
@@ -87,24 +108,23 @@ export class GalleryComponent {
     }
   ];
 
-  constructor(private modalService: NgbModal) { }
+  imageResults = this.images;
 
-  ngAfterViewInit() {
-    console.log(this.modal);
-  }
-
-  open(content) {
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-      windowClass: 'dark',
-      centered: true,
-      container: '.cmodal'
-    }).result.then((result) => {
-      console.log(`Closed with: ${result}`);
-    }, (reason) => {
-      console.log(`Dismissed ${reason}`);
-    });
+  transform(term: string) {
+    term = term ? term.trim() : '';
+    if (!term) {
+      this.imageResults = this.images;
+      this.imageResultCount = -1;
+    } else {
+      this.imageResults = (this.images || []).filter((item) => item.hasOwnProperty('heading') && new RegExp(term, 'gi').test(item['heading']));
+      const newTotal = this.imageResults.length;
+      if (this.imageResultCount !== newTotal) {
+        this.imageResultCount = newTotal;
+      } else {
+        this.imageResultCount = -1;
+      }
+    }
+    console.log(this.imageResultCount);
   }
 
 }

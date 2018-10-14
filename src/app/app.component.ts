@@ -6,23 +6,24 @@ import { trigger, transition, group, query, animate, style } from '../../node_mo
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   animations: [
-    trigger('slideInOut', [
-      transition('* => *, :enter', [
-        query(':enter, :leave', style({ position: 'absolute', width: '100%' }), { optional: true }),
-        query(':enter', style({ transform: 'translateX(-100vw)' }), { optional: true }),
-        query(':leave', style({ transform: 'translateX(0vw)' }), { optional: true }),
+    trigger('routerAnimations', [
+      transition('gallery => item', [
+        query(':enter, :leave', style({ position: 'absolute', width: '100%' })),
+        query(':enter', [
+          style({ transform: 'translateY(100vw)', zIndex: 999 }),
+          animate('500ms ease-in-out', style({
+            transform: 'translateY(0)'
+          }))
+        ])
+      ]),
 
-        group([
-          query(':leave', [
-            animate('500ms ease-in-out', style({
-              transform: 'translateX(100vw)'
-            }))
-          ], { optional: true }),
-          query(':enter', [
-            animate('500ms ease-in-out', style({
-              transform: 'translateX(0)'
-            }))
-          ], { optional: true })
+      transition('item => gallery', [
+        query(':enter, :leave', style({ position: 'absolute', width: '100%' })),
+        query(':leave', [
+          style({ transform: 'translateY(0vw)' }),
+          animate('500ms ease-in-out', style({
+            transform: 'translateY(100vw)'
+          }))
         ])
       ])
     ])
@@ -31,6 +32,7 @@ import { trigger, transition, group, query, animate, style } from '../../node_mo
 export class AppComponent {
 
   triggerAnimation(outlet) {
+    console.log(outlet.activatedRouteData);
     return outlet.activatedRouteData.animation || null;
   }
 

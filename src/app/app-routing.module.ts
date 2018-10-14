@@ -5,10 +5,12 @@ import { GalleryItemComponent } from './gallery-item/gallery-item.component';
 
 const routes: Routes = [{
   component: GalleryComponent,
-  path: ''
+  path: '',
+  data: { animation: 'gallery' }
 }, {
   component: GalleryItemComponent,
-  path: 'item/:id'
+  path: 'item/:url',
+  data: { animation: 'item' }
 }];
 
 @NgModule({
