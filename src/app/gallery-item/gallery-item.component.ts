@@ -9,10 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class GalleryItemComponent implements OnInit {
 
-  image;
+  image: string;
   constructor(private route: ActivatedRoute) {
     this.image = this.route.snapshot.params.url;
-    console.log('loading', this.image);
   }
 
   ngOnInit() {

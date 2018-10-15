@@ -9,13 +9,15 @@ import { FormsModule } from '../../node_modules/@angular/forms';
 import { SearchPipe } from './search.pipe';
 import { GalleryComponent } from './gallery/gallery.component';
 import { GalleryItemComponent } from './gallery-item/gallery-item.component';
+import { AboutPageComponent } from './about-page/about-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchPipe,
     GalleryComponent,
-    GalleryItemComponent
+    GalleryItemComponent,
+    AboutPageComponent
   ],
   imports: [
     BrowserModule,
