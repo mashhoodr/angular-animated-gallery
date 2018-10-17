@@ -16,45 +16,7 @@ import {
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.scss'],
-  animations: [
-
-    trigger('list', [
-      transition(':enter', [
-        query('@fade', stagger(100, animateChild()))
-      ])
-    ]),
-
-    trigger('filterAnimation', [
-      transition(':enter, * => 0, * => -1', []),
-      transition(':increment', [
-        query(':enter', [
-          style({ opacity: 0, maxWidth: 0 }),
-          stagger(50, [
-            animate('300ms ease-out', style({ opacity: 1, maxWidth: '*' })),
-          ]),
-        ], { optional: true })
-      ]),
-      transition(':decrement', [
-        query(':leave', [
-          stagger(50, [
-            animate('300ms ease-out', style({ opacity: 0, maxWidth: '0px' })),
-          ]),
-        ])
-      ]),
-    ]),
-
-    trigger('fade', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms ease-out', style({ opacity: 1 }))
-      ]),
-      transition(':leave', [
-        style({ opacity: 1 }),
-        animate('300ms ease-out', style({ opacity: 0 }))
-      ])
-    ])
-  ]
+  styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent {
   @ViewChild('modal') modal: ElementRef;

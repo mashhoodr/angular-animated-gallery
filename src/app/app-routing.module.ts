@@ -6,16 +6,13 @@ import { AboutPageComponent } from './about-page/about-page.component';
 
 const routes: Routes = [{
   component: GalleryComponent,
-  path: '',
-  data: { animation: 'gallery' }
+  path: ''
 }, {
   component: GalleryItemComponent,
-  path: 'item/:url',
-  data: { animation: 'item' }
+  path: 'item/:url'
 }, {
   component: AboutPageComponent,
-  path: 'about',
-  data: { animation: 'about' }
+  path: 'about'
 }];
 
 @NgModule({
